@@ -32,4 +32,19 @@ searchInput.addEventListener("input", () => {
   const filtered = allStudents.filter(student => student.name.toLowerCase().includes(value));
   displayStudents(filtered);
 });
+
+
+// course filter logic
+const courseFilter = document.getElementById("courseFilter");
+
+courseFilter.addEventListener("change", () => {
+  const selectedCourse = courseFilter.value;
+
+  if (selectedCourse === "all") {
+    displayStudents(allStudents);
+  } else {
+    const filtered = allStudents.filter(student => student.course === selectedCourse);
+    displayStudents(filtered);
+  }
+});
 loadStudents();
