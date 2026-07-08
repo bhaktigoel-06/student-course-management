@@ -8,6 +8,7 @@ function displayStudents(students) {
   `).join("");
 }
 
+let allStudents = [];
 
 async function loadStudents() {
   try {
@@ -16,12 +17,19 @@ async function loadStudents() {
 
 console.log("FETCH RUNNING");
 
-    console.log(data); // 👈 check yaha
+    console.log(data); 
+    allStudents = data;
     displayStudents(data);
   } catch (err) {
     console.log(err);
   }
 }
 
+// search logic
+const searchInput = document.getElementById("search");
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.toLowerCase();
+  const filtered = allStudents.filter(student => student.name.toLowerCase().includes(value));
+  displayStudents(filtered);
+});
 loadStudents();
-
