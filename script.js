@@ -53,27 +53,39 @@ function showStats(students) {
 
   const total = students.length;
 
-  const averageAge = students.reduce((sum, student) => {
-    return sum + student.age;
-  }, 0) / total;
+  const averageAge = students.reduce((sum, s) => sum + s.age, 0) / total;
 
-
-  const courseCount = students.reduce((acc, student) => {
-
-    acc[student.course] = (acc[student.course] || 0) + 1;
-
+  const courseCount = students.reduce((acc, s) => {
+    acc[s.course] = (acc[s.course] || 0) + 1;
     return acc;
-
   }, {});
 
+  const courseHTML = Object.entries(courseCount)
+    .map(([course, count]) => `<p>${course}: ${count}</p>`)
+    .join("");
 
   document.getElementById("stats").innerHTML = `
-    <h3>Total Students: ${total}</h3>
-    <h3>Average Age: ${averageAge.toFixed(2)}</h3>
-    <h3>Course Count:</h3>
-    <p>${JSON.stringify(courseCount)}</p>
+    <div class="stats-container">
+      
+      <div class="card">
+        <h3>Total Students</h3>
+        <p>${total}</p>
+      </div>
+
+      <div class="card">
+        <h3>Average Age</h3>
+        <p>${averageAge.toFixed(1)}</p>
+      </div>
+
+      <div class="card">
+        <h3>Courses</h3>
+        ${courseHTML}
+      </div>
+
+    </div>
   `;
 }
 
+  
 
 loadStudents();
