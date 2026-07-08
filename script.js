@@ -1,12 +1,11 @@
 function displayStudents(students) {
   const list = document.getElementById("list");
-  list.innerHTML = "";
 
-  students.forEach(student => {
-    const li = document.createElement("li");
-    li.textContent = `${student.id} | ${student.name} | ${student.course} | ${student.age}`;
-    list.appendChild(li);
-  });
+  list.innerHTML = students.map(student => `
+    <li>
+      ${student.id} | ${student.name} | ${student.course} | ${student.age}
+    </li>
+  `).join("");
 }
 
 
