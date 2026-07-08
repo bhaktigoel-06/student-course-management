@@ -20,6 +20,7 @@ console.log("FETCH RUNNING");
     console.log(data); 
     allStudents = data;
     displayStudents(data);
+    showStats(data);
   } catch (err) {
     console.log(err);
   }
@@ -47,4 +48,32 @@ courseFilter.addEventListener("change", () => {
     displayStudents(filtered);
   }
 });
+
+function showStats(students) {
+
+  const total = students.length;
+
+  const averageAge = students.reduce((sum, student) => {
+    return sum + student.age;
+  }, 0) / total;
+
+
+  const courseCount = students.reduce((acc, student) => {
+
+    acc[student.course] = (acc[student.course] || 0) + 1;
+
+    return acc;
+
+  }, {});
+
+
+  document.getElementById("stats").innerHTML = `
+    <h3>Total Students: ${total}</h3>
+    <h3>Average Age: ${averageAge.toFixed(2)}</h3>
+    <h3>Course Count:</h3>
+    <p>${JSON.stringify(courseCount)}</p>
+  `;
+}
+
+
 loadStudents();
