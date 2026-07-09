@@ -1,0 +1,66 @@
+/* Reset basic spacing */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+}
+
+/* Search + filter */
+input, select {
+  padding: 8px;
+  margin: 10px 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Stats section */
+#stats {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+}
+
+/* Student cards container */
+#studentList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Card style */
+.card {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Hover effect */
+.card:hover {
+  background: #e6f0ff;
+  transform: scale(1.02);
+}
+
+/* Student name */
+.card h3 {
+  margin: 0;
+}
+
+/* Details panel */
+#details {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+}

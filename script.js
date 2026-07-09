@@ -2,8 +2,8 @@ function displayStudents(students) {
   const list = document.getElementById("studentList");
 
   list.innerHTML = students.map(student => `
-    <div onclick="showDetails(${student.id})">
-      ${student.name} 
+    <div class="card" onclick="showDetails(${student.id})">
+      <h3>${student.name}</h3>
     </div>
   `).join("");
 }
