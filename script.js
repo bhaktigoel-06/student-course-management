@@ -1,3 +1,4 @@
+// Display students logic
 function displayStudents(students) {
   const list = document.getElementById("studentList");
 
@@ -10,6 +11,7 @@ function displayStudents(students) {
   `).join("");
 }
 
+// Add student logic
 function addStudent() {
   let name = document.getElementById("name").value;
   let course = document.getElementById("course").value;
@@ -21,7 +23,7 @@ function addStudent() {
   };
 
   students.push(newStudent);
-  saveToLocalStorage(students);   // ⭐ important
+  saveToLocalStorage(students);  
   displayStudents(students);
 }
 
@@ -63,10 +65,12 @@ form.addEventListener("submit", (e) => {
   form.reset();
 });
 
+// Local storage logic
 function saveToLocalStorage(students) {
   localStorage.setItem("students", JSON.stringify(students));
 }
 
+// Load from local storage
 function getFromLocalStorage() {
   return JSON.parse(localStorage.getItem("students")) || [];
 }
@@ -74,7 +78,7 @@ function getFromLocalStorage() {
 let students = getFromLocalStorage();
 displayStudents(students);
 
-
+// stats logic
 function showStats(students) {
   const total = students.length;
 
@@ -100,6 +104,7 @@ function showStats(students) {
   `;
 }
 
+// fetch logic
 let allStudents = [];
 
 async function loadStudents() {
@@ -118,6 +123,7 @@ console.log("FETCH RUNNING");
   }
 }
 
+
 // search logic
 const searchInput = document.getElementById("search");
 searchInput.addEventListener("input", () => {
@@ -125,7 +131,6 @@ searchInput.addEventListener("input", () => {
   const filtered = allStudents.filter(student => student.name.toLowerCase().includes(value));
   displayStudents(filtered);
 });
-
 
 // course filter logic
 const courseFilter = document.getElementById("courseFilter");
@@ -140,6 +145,8 @@ courseFilter.addEventListener("change", () => {
     displayStudents(filtered);
   }
 });
+
+// show details logic
 function showDetails(id) {
   const student = allStudents.find(s => s.id === id);
   if (!student) return;
@@ -160,6 +167,7 @@ function showDetails(id) {
   `;
 }
 
+//delete logic
   function deleteStudent(id) {
     allStudents = allStudents.filter(s => s.id !== id);
     showStats(allStudents);
@@ -169,6 +177,7 @@ function showDetails(id) {
     document.getElementById("details").innerHTML = "";
   }
 
+//edit logic
   let editId=null;
   function editStudent(id) {
     const student = allStudents.find(s => s.id === id);
@@ -187,6 +196,7 @@ function showDetails(id) {
 
   }
 
+//close details logic
     function closeDetails() {
   document.getElementById("details").style.display = "none";
 }
