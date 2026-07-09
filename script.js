@@ -1,11 +1,36 @@
 function displayStudents(students) {
-  const list = document.getElementById("list");
+  const list = document.getElementById("studentList");
 
   list.innerHTML = students.map(student => `
-    <li>
-      ${student.id} | ${student.name} | ${student.course} | ${student.age}
-    </li>
+    <div onclick="showDetails(${student.id})">
+      ${student.name} - ${student.course}
+    </div>
   `).join("");
+}
+
+function showStats(students) {
+  const total = students.length;
+
+  const avgAge =
+    students.reduce((sum, s) => sum + s.age, 0) / total;
+
+  const courseCount = students.reduce((acc, s) => {
+    acc[s.course] = (acc[s.course] || 0) + 1;
+    return acc;
+  }, {});
+
+  const container = document.getElementById("stats");
+
+  container.innerHTML = `
+    <p>Total Students: ${total}</p>
+    <p>Average Age: ${avgAge.toFixed(1)}</p>
+    <p>Courses:</p>
+    <ul>
+      ${Object.entries(courseCount)
+        .map(([course, count]) => `<li>${course}: ${count}</li>`)
+        .join("")}
+    </ul>
+  `;
 }
 
 let allStudents = [];
@@ -19,8 +44,8 @@ console.log("FETCH RUNNING");
 
     console.log(data); 
     allStudents = data;
-    displayStudents(data);
     showStats(data);
+    displayStudents(data); 
   } catch (err) {
     console.log(err);
   }
@@ -49,43 +74,21 @@ courseFilter.addEventListener("change", () => {
   }
 });
 
-function showStats(students) {
+function showDetails(id) {
+  const student = allStudents.find(s => s.id === id);
 
-  const total = students.length;
+  const details = document.getElementById("details");
 
-  const averageAge = students.reduce((sum, s) => sum + s.age, 0) / total;
-
-  const courseCount = students.reduce((acc, s) => {
-    acc[s.course] = (acc[s.course] || 0) + 1;
-    return acc;
-  }, {});
-
-  const courseHTML = Object.entries(courseCount)
-    .map(([course, count]) => `<p>${course}: ${count}</p>`)
-    .join("");
-
-  document.getElementById("stats").innerHTML = `
-    <div class="stats-container">
-      
-      <div class="card">
-        <h3>Total Students</h3>
-        <p>${total}</p>
-      </div>
-
-      <div class="card">
-        <h3>Average Age</h3>
-        <p>${averageAge.toFixed(1)}</p>
-      </div>
-
-      <div class="card">
-        <h3>Courses</h3>
-        ${courseHTML}
-      </div>
-
-    </div>
+  details.innerHTML = `
+    <h3>${student.name}</h3>
+    <p>ID: ${student.id}</p>
+    <p>Age: ${student.age}</p>
+    <p>Email: ${student.email}</p>
+    <p>Course: ${student.course}</p>
+    <p>Year: ${student.enrollmentYear}</p>
+    <p>GPA: ${student.gpa}</p>
   `;
 }
-
-  
-
-loadStudents();
+document.addEventListener("DOMContentLoaded", () => {
+  loadStudents();
+});
