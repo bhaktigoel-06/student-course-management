@@ -42,6 +42,8 @@ form.addEventListener("submit", (e) => {
     gpa: Number(document.getElementById("gpa").value)
   };
 
+  
+
   if (editId) {
     // update existing
     allStudents = allStudents.map(s =>
@@ -191,3 +193,7 @@ function showDetails(id) {
 document.addEventListener("DOMContentLoaded", () => {
   loadStudents();
 });
+
+document.getElementById("toggleTheme").onclick = () => {
+  document.body.classList.toggle("dark");
+};
