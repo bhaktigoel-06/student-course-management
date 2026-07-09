@@ -3,7 +3,7 @@ function displayStudents(students) {
 
   list.innerHTML = students.map(student => `
     <div onclick="showDetails(${student.id})">
-      ${student.name} - ${student.course}
+      ${student.name} 
     </div>
   `).join("");
 }
