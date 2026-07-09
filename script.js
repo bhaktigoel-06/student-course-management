@@ -73,21 +73,28 @@ courseFilter.addEventListener("change", () => {
     displayStudents(filtered);
   }
 });
-
 function showDetails(id) {
   const student = allStudents.find(s => s.id === id);
+  if (!student) return;
 
   const details = document.getElementById("details");
 
+  details.style.display = "block";
+
   details.innerHTML = `
-    <h3>${student.name}</h3>
-    <p>ID: ${student.id}</p>
-    <p>Age: ${student.age}</p>
-    <p>Email: ${student.email}</p>
-    <p>Course: ${student.course}</p>
-    <p>Year: ${student.enrollmentYear}</p>
-    <p>GPA: ${student.gpa}</p>
+    <h2>${student.name}</h2>
+    <p><strong>ID:</strong> ${student.id}</p>
+    <p><strong>Age:</strong> ${student.age}</p>
+    <p><strong>Email:</strong> ${student.email}</p>
+    <p><strong>Course:</strong> ${student.course}</p>
+    <p><strong>Year:</strong> ${student.enrollmentYear}</p>
+    <p><strong>GPA:</strong> ${student.gpa}</p>
+    <button onclick="closeDetails()">Close</button>
   `;
+}
+
+function closeDetails() {
+  document.getElementById("details").style.display = "none";
 }
 document.addEventListener("DOMContentLoaded", () => {
   loadStudents();
