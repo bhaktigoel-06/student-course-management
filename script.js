@@ -4,6 +4,8 @@ function displayStudents(students) {
   list.innerHTML = students.map(student => `
     <div class="card" onclick="showDetails(${student.id})">
       <h3>${student.name}</h3>
+      <button onclick="editStudent(${student.id})">Edit</button>
+      <button onclick="deleteStudent(${student.id})">Delete</button>
     </div>
   `).join("");
 }
@@ -13,8 +15,8 @@ const form = document.getElementById("studentForm");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const newStudent = {
-    id: Date.now(), // unique id
+  const studentData = {
+    id: editId || Date.now(),
     name: document.getElementById("name").value,
     age: Number(document.getElementById("age").value),
     email: document.getElementById("email").value,
@@ -23,14 +25,20 @@ form.addEventListener("submit", (e) => {
     gpa: Number(document.getElementById("gpa").value)
   };
 
-  // add to array
-  allStudents.push(newStudent);
+  if (editId) {
+    // update existing
+    allStudents = allStudents.map(s =>
+      s.id === editId ? studentData : s
+    );
+    editId = null;
+  } else {
+    // add new
+    allStudents.push(studentData);
+  }
 
-  // update UI
   showStats(allStudents);
   displayStudents(allStudents);
 
-  // reset form
   form.reset();
 });
 
@@ -119,7 +127,32 @@ function showDetails(id) {
   `;
 }
 
-function closeDetails() {
+  function deleteStudent(id) {
+    allStudents = allStudents.filter(s => s.id !== id);
+    showStats(allStudents);
+    displayStudents(allStudents);
+
+    document.getElementById("details").innerHTML = "";
+  }
+
+  let editId=null;
+  function editStudent(id) {
+    const student = allStudents.find(s => s.id === id);
+    if (!student) return;
+
+    editId=id;
+
+    document.getElementById("name").value = student.name;
+    document.getElementById("age").value = student.age;
+    document.getElementById("email").value = student.email;
+    document.getElementById("course").value = student.course;
+    document.getElementById("year").value = student.enrollmentYear;
+    document.getElementById("gpa").value = student.gpa;
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+    function closeDetails() {
   document.getElementById("details").style.display = "none";
 }
 document.addEventListener("DOMContentLoaded", () => {
