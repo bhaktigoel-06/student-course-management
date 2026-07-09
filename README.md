@@ -18,7 +18,8 @@ The user could:
 - Search by course  
 - Add, edit & delete the information  
 - See the stats representing number of students in respective course, average of GPA and many more  
-- Change the mode of representation (Light/Dark) according to convenience  
+- Change the mode of representation (Light/Dark) according to convenience
+- Store the data in Local Storage 
 
 
 ## 💡 ES6 Concepts
@@ -44,7 +45,7 @@ The user could:
 
 ## ⚡ Challenges Faced
 
-- Facing a lot of issues in modular  
+- Facing a lot of issues in creating modular structure
 - UI took many modifications  
 
 
