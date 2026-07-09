@@ -10,6 +10,23 @@ function displayStudents(students) {
   `).join("");
 }
 
+function addStudent() {
+  let name = document.getElementById("name").value;
+  let course = document.getElementById("course").value;
+
+  let newStudent = {
+    id: Date.now(),
+    name,
+    course
+  };
+
+  students.push(newStudent);
+  saveToLocalStorage(students);   // ⭐ important
+  displayStudents(students);
+}
+
+
+
 const form = document.getElementById("studentForm");
 
 form.addEventListener("submit", (e) => {
@@ -36,11 +53,25 @@ form.addEventListener("submit", (e) => {
     allStudents.push(studentData);
   }
 
+   localStorage.setItem("students", JSON.stringify(allStudents));
+
   showStats(allStudents);
   displayStudents(allStudents);
 
   form.reset();
 });
+
+function saveToLocalStorage(students) {
+  localStorage.setItem("students", JSON.stringify(students));
+}
+
+function getFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("students")) || [];
+}
+
+let students = getFromLocalStorage();
+displayStudents(students);
+
 
 function showStats(students) {
   const total = students.length;
@@ -130,6 +161,7 @@ function showDetails(id) {
   function deleteStudent(id) {
     allStudents = allStudents.filter(s => s.id !== id);
     showStats(allStudents);
+    saveToLocalStorage(students);  
     displayStudents(allStudents);
 
     document.getElementById("details").innerHTML = "";
@@ -150,6 +182,7 @@ function showDetails(id) {
     document.getElementById("gpa").value = student.gpa;
 
     window.scrollTo({ top: 0, behavior: "smooth" });
+
   }
 
     function closeDetails() {
