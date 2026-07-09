@@ -8,6 +8,32 @@ function displayStudents(students) {
   `).join("");
 }
 
+const form = document.getElementById("studentForm");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const newStudent = {
+    id: Date.now(), // unique id
+    name: document.getElementById("name").value,
+    age: Number(document.getElementById("age").value),
+    email: document.getElementById("email").value,
+    course: document.getElementById("course").value,
+    enrollmentYear: Number(document.getElementById("year").value),
+    gpa: Number(document.getElementById("gpa").value)
+  };
+
+  // add to array
+  allStudents.push(newStudent);
+
+  // update UI
+  showStats(allStudents);
+  displayStudents(allStudents);
+
+  // reset form
+  form.reset();
+});
+
 function showStats(students) {
   const total = students.length;
 
