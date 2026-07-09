@@ -11,4 +11,4 @@ The user could:
 
 #ES6 concepts
 1.Array Function
-![Array Map](images/array+map.png)
+![Array Map](images/array-map.png)
